@@ -1,0 +1,23 @@
+{% extends "base.html" %}
+{% load staticfiles %}
+{% load crispy_forms_tags %}
+{% block content %}
+    <div class="content section">
+        <form method="post">
+            {% csrf_token %}
+            <img src="{% static 'users/image/40x40.png' %}" class="ml-3">
+            <fieldset class="form-group">
+                <legend class="border-bottom mb-4">Sign in</legend>
+                {{ form|crispy }}
+            </fieldset>
+            <div class="form-group">
+                <button class="btn btn-primary" type="submit">LOG IN</button>
+            </div>
+        </form>
+        <div class="border-top pt-3">
+            <small class="text-muted">
+                New to Reddit? <a class="ml-2" href="{% url 'register' %}">SIGN UP</a>
+            </small>
+        </div>
+    </div>
+{% endblock content %}

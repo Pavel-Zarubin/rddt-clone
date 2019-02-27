@@ -1,0 +1,38 @@
+{% extends "base.html" %}
+{% load staticfiles %}
+{% load crispy_forms_tags %}
+{% block content %}
+    <div class="card mt-4">
+        <div class="content-section mt-2 mb-2">
+            <div class="media ml-2">
+                <img class="rounded" src="{{ user.profile.image.url }}" width="100px" height="100px">
+                <div class="media-body ml-3">
+                     <h3 class="account-heading">{{ user.username }}</h3>
+                    <p class="text-secondary">{{ user.email }}</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="btn-group dropdown">
+            <button type="button" class="btn btn-outline-info dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                Profile Info
+            </button>
+            <div class="dropdown-menu">
+                 <a class="dropdown-item">
+                     <form method="post" enctype="multipart/form-data">
+                         {% csrf_token %}
+                         <fieldset class="form-group">
+                             <legend class="border-bottom mb-4">Profile Info</legend>
+                             {{ u_form|crispy }}
+                             {{ p_form|crispy }}
+                         </fieldset>
+                         <div class="form-group">
+                             <button class="btn btn-primary ml-4" type="submit">Update</button>
+                         </div>
+                     </form>
+                </a>
+            </div>
+        </div>
+    </div>
+{% endblock content %}
+
