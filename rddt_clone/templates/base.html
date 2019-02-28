@@ -85,7 +85,7 @@
                         <img class="card-img-top" src="{% static 'MainPage/image/post.jpeg' %}">
                         <div class="card-body">
                             <p class="card-text">The most active posts from all of Reddit. Come here to see new posts rising and be a part of the conversation.</p>
-                            <button type="button" class="btn btn-primary btn-lg btn-block">CREATE POST</button>
+                            <a class="btn btn-primary btn-lg btn-block" href="{% url 'post_create' %}" role="button">CREATE POST</a>
                         </div>
                     </div>
                 </div>
