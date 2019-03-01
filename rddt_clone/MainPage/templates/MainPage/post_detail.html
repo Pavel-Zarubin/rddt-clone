@@ -13,7 +13,7 @@
                              <a class="ml-3" href="#" >{{object.author}}</a>
                              <a class="text-muted">on {{ object.date_posted }}</a>
                              {% if object.author == user %}
-                             <a class="btn-sm btn-secondary ml-3 mb-2" href="{% url 'post_update' object.id %}" role="button">UPDATE</a>
+                             <a class="btn-sm btn-secondary ml-3 mb-2" href="{% url 'post_update' object.id %}" role="button">EDIT</a>
                              <a class="btn-sm btn-danger ml-3 mb-2" href="{% url 'post_delete' object.id %}" role="button">DELETE</a>
                              {% endif %}
                          </div>
