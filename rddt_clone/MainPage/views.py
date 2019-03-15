@@ -1,15 +1,16 @@
 from django.shortcuts import render, get_object_or_404
+from django.urls import reverse_lazy
 from django.views.generic import ListView, DetailView, CreateView, UpdateView, DeleteView
 from django.contrib.auth.models import User
-from .models import Post
 from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
+from .models import Post, Comment
+
 
 
 def posts_list(request):
-    context = {
-        'posts': Post.objects.all()
-    }
-    return render(request, 'MainPage/mainpage.html', context)
+
+    return render(request, 'MainPage/mainpage.html', context = {'posts': Post.objects.all()})
+
 
 class PostListView(ListView):
     model = Post
@@ -17,6 +18,8 @@ class PostListView(ListView):
     context_object_name = 'posts'
     ordering = ['-date_posted']
     paginate_by = 5
+
+
 
 class UserPostListView(ListView):
     model = Post
@@ -32,6 +35,8 @@ class UserPostListView(ListView):
 
 class PostDetailView(DetailView):
     model = Post
+
+
 
 class PostCreateView(LoginRequiredMixin, CreateView):
     model = Post
@@ -54,11 +59,12 @@ class PostUpdateView(LoginRequiredMixin, UserPassesTestMixin, UpdateView):
         post = self.get_object()
         if self.request.user == post.author:
             return True
-        return  False
+        return False
 
 
 class PostDeleteView(LoginRequiredMixin, UserPassesTestMixin, DeleteView):
     model = Post
+
     success_url = '/'
 
     def test_func(self):
@@ -66,6 +72,32 @@ class PostDeleteView(LoginRequiredMixin, UserPassesTestMixin, DeleteView):
         if self.request.user == post.author:
             return True
         return False
+
+
+class CreatePostComment(CreateView):
+    model = Comment
+    fields = ['content']
+
+    def form_valid(self, form):
+        form.instance.author = self.request.user
+        form.instance.post = get_object_or_404(Post, pk=self.kwargs.get('pk'))
+        return super().form_valid(form)
+
+    def get_success_url(self):
+        return reverse_lazy('posts_list_All')
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
