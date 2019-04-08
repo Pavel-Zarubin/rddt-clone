@@ -20,7 +20,6 @@ class PostListView(ListView):
     paginate_by = 5
 
 
-
 class UserPostListView(ListView):
     model = Post
     template_name = 'MainPage/user_posts.html'
@@ -35,7 +34,10 @@ class UserPostListView(ListView):
 
 class PostDetailView(DetailView):
     model = Post
+    template_name = 'MainPage/post_detail.html'
 
+    def get_context_data(self, **kwargs):
+        return super().get_context_data(**kwargs)
 
 
 class PostCreateView(LoginRequiredMixin, CreateView):
@@ -85,6 +87,8 @@ class CreatePostComment(CreateView):
 
     def get_success_url(self):
         return reverse_lazy('posts_list_All')
+
+
 
 
 

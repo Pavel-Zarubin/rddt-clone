@@ -1,0 +1,35 @@
+{% extends "base.html" %}
+{% load staticfiles %}
+{% load crispy_forms_tags %}
+
+
+{% block content %}
+    <form method="get">
+        Filters:
+        {{ filter.form|crispy }}
+        <button type="submit" class="btn-sm btn-primary mb-5">filter</button>
+    </form>
+    <a class="text-secondary">All users profiles</a>
+    {% for user in filter.qs %}
+        <div class="card mt-2 mb-3">
+            <div class="content-section mt-2 mb-2">
+                <div class="media ml-2">
+                    <img class="rounded" src="{{ user.image.url }}" width="100px" height="100px">
+                    <div class="media-body ml-3">
+                        <h3 class="account-heading">{{ user.username }}</h3>
+                        <a class="text-secondary"><h5>{{ user.get_gender_display }}</h5></a>
+                        <p class="text-secondary">email: {{ user.email }}</p>
+                        <p class="text-secondary">inn: {{ user.inn }}</p>
+
+                        About myself:
+                        <p class="text-secondary">{{ user.about_myself }}</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        {% empty %}
+        <a class="text mt-2">
+            <h4>No matching users :(</h4>
+        </a>
+    {% endfor %}
+{% endblock %}

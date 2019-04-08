@@ -1,0 +1,23 @@
+{% extends "base.html" %}
+{% load staticfiles %}
+{% load crispy_forms_tags %}
+{% block content %}
+    <a class="text-secondary">Gender filter:</a>
+    <a class="text-secondary">{{ view.kwargs.first_name }}</a>
+    {% for profile in profiles %}
+    <div class="card mt-2">
+        <div class="content-section mt-2 mb-2">
+            <div class="media ml-2">
+                <img class="rounded" src="{{ profile.image.url }}" width="100px" height="100px">
+                <div class="media-body ml-3">
+                     <h3 class="account-heading">{{ profile.user.username }}</h3>
+                    <a class="text-secondary"><h5>{{ profile.user.first_name }}</h5></a>
+                    <p class="text-secondary">{{ profile.user.email }}</p>
+                    About myself:
+                    <p class="text-secondary">{{ profile.about_myself }}</p>
+                </div>
+            </div>
+        </div>
+    </div>
+    {% endfor %}
+{% endblock %}

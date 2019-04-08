@@ -2,6 +2,7 @@ from django.test import TestCase
 from .models import Post, Comment
 from django.utils import timezone
 from django.contrib.auth.models import User
+from django.test import Client
 
 
 #Models
@@ -33,8 +34,6 @@ class TestComment(TestCase):
         c = self.create_comment()
         self.assertTrue(isinstance(c, Comment))
         self.assertEqual(c.__str__(), c.content)
-
-
 
 
 

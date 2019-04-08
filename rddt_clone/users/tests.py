@@ -1,7 +1,7 @@
 from django.test import TestCase
 from django.contrib.auth.models import User
 from .forms import UserRegisterForm, ProfileUpdateForm, UserUpdateForm
-
+from django.shortcuts import reverse
 
 
 #Forms
@@ -54,18 +54,45 @@ class TestProfileUpdateForm(TestCase):
 
         self.assertTrue(form.is_valid())
 
+
 #Views
 
-    #login
-class LogInTest(TestCase):
+    #Register
+class SignUpTest(TestCase):
+
     def setUp(self):
         self.data = {
             'username': 'testuser',
-            'password': 'test321123'}
+            'email': 'email@memail.com',
+            'password1': 'test321123',
+            'password2': 'test321123'
+        }
+
+    def test_register(self):
+        response = self.client.post('/register/', self.data, follow=True)
+        self.assertTrue(response.context)
+
+    def test_register_page(self):
+        url = reverse('register')
+        response = self.client.get(url)
+        self.assertTemplateUsed(response, 'users/register.html')
+
+
+    #Login
+class LogInTest(TestCase):
+
+    def setUp(self):
+        self.data = {
+            'username': 'testuser',
+            'password': 'test321123'
+        }
+
         User.objects.create_user(**self.data)
+
     def test_login(self):
         response = self.client.post('/login/', self.data, follow=True)
         self.assertTrue(response.context['user'].is_active)
+
 
 
 

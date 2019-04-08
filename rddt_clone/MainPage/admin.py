@@ -1,10 +1,17 @@
 from django.contrib import admin
 from .models import Post, Comment
 
-admin.site.register(Comment)
 
 @admin.register(Post)
 class PostAdmin(admin.ModelAdmin):
     pass
 
-# Register your models here.
+
+@admin.register(Comment)
+class CommentAdmin(admin.ModelAdmin):
+    list_display = ['author', 'post', 'date_posted']
+    actions = ['my_custom_actino']
+
+    def my_custom_action(self, request, queryset):
+        return True
+    my_custom_action.short_description = 'Custom'

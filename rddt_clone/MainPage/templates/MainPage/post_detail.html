@@ -8,14 +8,13 @@
 {% block content %}
         <div class="card mt-4 mb-2">
             <article class="media content-section">
-                <img class="rounded article-img" src="{{ object.author.profile.image.url }}">
+                <img class="rounded article-img" src="{{ object.author.image.url }}">
                      <div class="media-body">
                          <div class="article-metadata mt-3 mb-3">
                              <a class="ml-3" href="{% url 'user_posts' post.author.username %}" >{{object.author}}</a>
                              <a class="text-muted">on {{ object.date_posted }}</a>
                              {% if object.author == user %}
                              <a class="btn-sm btn-secondary ml-3 mb-2" href="{% url 'post_update' object.id %}" role="button">EDIT</a>
-                             <a class="btn-sm btn-danger ml-3 mb-2" href="{% url 'post_delete' object.id %}" role="button">DELETE</a>
                              {% endif %}
                          </div>
                          <h4 class="card-title ml-3">{{ object.title }}</h4>
@@ -28,17 +27,23 @@
         <hr>
         <a class="btn btn-primary mb-3" href="{% url 'add_comment' pk=post.pk %}">Add Comment</a>
     {% else %}
+        <a class="ml-2" href="{% url 'login' %}">LOG IN</a> to leave a comment
     {% endif %}
     {% for comment in post.comments.all %}
-        <div class="card mb-3">
+        <div class="card mb-3 mt-2">
             <div class="card-header"> <strong>{{ comment.author }} </strong> {{ comment.date_posted }}</div>
             <div class="card-body">
                 <p>{{ comment.content|linebreaks }}</p>
             </div>
         </div>
     {% empty %}
+        {% if object.author == user %}
+            <a class="btn btn-danger ml-3 mb-3" href="{% url 'post_delete' object.id %}" role="button">Delete Post</a>
+        {% endif %}
         <p>No comments here yet <img src="{% static 'MainPage/image/40x40_minor.png' %}" width="25px" height="25px"></p>
     {% endfor %}
 
 {% endblock %}
+
+
 

@@ -2,15 +2,19 @@
 {% load staticfiles %}
 {% load crispy_forms_tags %}
 {% block content %}
-    <div class="card mt-4">
+    <a class="text-secondary" href="{% url 'profile_list' %}">View all users profiles</a>
+    <div class="card mt-2">
         <div class="content-section mt-2 mb-2">
             <div class="media ml-2">
-                <img class="rounded" src="{{ user.profile.image.url }}" width="100px" height="100px">
+                <img class="rounded" src="{{ user.image.url }}" width="100px" height="100px">
                 <div class="media-body ml-3">
                      <h3 class="account-heading">{{ user.username }}</h3>
-                    <p class="text-secondary">{{ user.email }}</p>
+                    <a class="text-secondary"><h5>{{ user.get_gender_display }}</h5></a>
+                    <p class="text-secondary">email: {{ user.email }}</p>
+                    <p class="text-secondary">inn: {{ user.inn }}</p>
+
                     About myself:
-                    <p class="text-secondary">{{ user.profile.about_myself }}</p>
+                    <p class="text-secondary">{{ user.about_myself }}</p>
                 </div>
             </div>
         </div>
@@ -23,7 +27,7 @@
                  <a class="dropdown-item">
                      <form method="post" enctype="multipart/form-data">
                          {% csrf_token %}
-                         <fieldset class="form-group">
+                         <fieldset class="form-group ml-3 mr-3">
                              <legend class="border-bottom mb-4">Profile Info</legend>
                              {{ u_form|crispy }}
                              {{ p_form|crispy }}

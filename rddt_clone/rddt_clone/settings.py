@@ -29,21 +29,23 @@ ALLOWED_HOSTS = []
 
 
 
-
 # Application definition
-
 INSTALLED_APPS = [
-    'MainPage',
-    'users.apps.UsersConfig',
-    'crispy_forms',
-    'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'bootstrap4',
+    'django.contrib.admin',
+    'sorl.thumbnail',
+    'rolepermissions',
+    'django_filters',
+    'crispy_forms',
+    'MainPage',
+    'users',
 ]
+
+
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
@@ -82,13 +84,15 @@ WSGI_APPLICATION = 'rddt_clone.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+        'NAME': os.path.join(BASE_DIR, 'rddt.db'),
     }
 }
 
 
 # Password validation
 # https://docs.djangoproject.com/en/2.1/ref/settings/#auth-password-validators
+
+AUTH_USER_MODEL = "users.User"
 
 AUTH_PASSWORD_VALIDATORS = [
     {
