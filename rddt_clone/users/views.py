@@ -60,3 +60,4 @@ class ProfileListView(ListView):
         context = super().get_context_data(**kwargs)
         context['filter'] = UsersFilter(self.request.GET, queryset=self.get_queryset())
         return context
+

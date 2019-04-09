@@ -7,7 +7,7 @@ import django.db.models.deletion
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('MainPage', '0006_auto_20190306_1340'),
+        ('posts', '0006_auto_20190306_1340'),
     ]
 
     operations = [

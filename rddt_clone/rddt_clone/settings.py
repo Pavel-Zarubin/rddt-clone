@@ -41,7 +41,7 @@ INSTALLED_APPS = [
     'rolepermissions',
     'django_filters',
     'crispy_forms',
-    'MainPage',
+    'posts',
     'users',
 ]
 

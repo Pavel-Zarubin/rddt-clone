@@ -1,7 +1,7 @@
 from django.shortcuts import render, get_object_or_404
 from django.urls import reverse_lazy
 from django.views.generic import ListView, DetailView, CreateView, UpdateView, DeleteView
-from django.contrib.auth.models import User
+from users.models import User
 from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
 from .models import Post, Comment
 
@@ -9,12 +9,12 @@ from .models import Post, Comment
 
 def posts_list(request):
 
-    return render(request, 'MainPage/mainpage.html', context = {'posts': Post.objects.all()})
+    return render(request, 'posts/post_list.html', context = {'posts': Post.objects.all()})
 
 
 class PostListView(ListView):
     model = Post
-    template_name = 'MainPage/mainpage.html'
+    template_name = 'posts/post_list.html'
     context_object_name = 'posts'
     ordering = ['-date_posted']
     paginate_by = 5
@@ -22,7 +22,7 @@ class PostListView(ListView):
 
 class UserPostListView(ListView):
     model = Post
-    template_name = 'MainPage/user_posts.html'
+    template_name = 'posts/user_posts.html'
     context_object_name = 'posts'
     ordering = ['-date_posted']
     paginate_by = 5
@@ -34,7 +34,7 @@ class UserPostListView(ListView):
 
 class PostDetailView(DetailView):
     model = Post
-    template_name = 'MainPage/post_detail.html'
+    template_name = 'posts/post_detail.html'
 
     def get_context_data(self, **kwargs):
         return super().get_context_data(**kwargs)
