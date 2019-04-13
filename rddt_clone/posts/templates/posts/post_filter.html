@@ -1,0 +1,38 @@
+{% extends 'base.html' %}
+
+{% block title %}
+    Reddit-clone
+{% endblock %}
+
+{% block content %}
+    <form class="mb-2" method="get">
+        {{ filter.form }}
+        <button type="submit" class="btn-sm btn-primary">filter</button>
+    </form>
+
+    <table class="table table-bordered">
+  <thead>
+    <tr>
+      <th scope="col">Title</th>
+      <th scope="col">Date Posted</th>
+      <th scope="col">Author</th>
+      <th scope="col">Last Comment</th>
+      <th scope="col">Comment Count</th>
+    </tr>
+  </thead>
+  <tbody>
+  {% for post in filter.qs %}
+    <tr>
+      <td>{{ post.title }}</td>
+      <td>{{ post.date_posted }}</td>
+      <td>{{ post.author }}</td>
+      <td>{{ post.comments.last }}</td>
+      <td>{{ post.comments.count }}</td>
+    </tr>
+  {% empty %}
+      <a class="text-danger"><h4>This user has no published posts.</h4></a>
+  {% endfor %}
+  </tbody>
+</table>
+
+{% endblock %}
