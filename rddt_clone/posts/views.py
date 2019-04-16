@@ -6,13 +6,10 @@ from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
 from .models import Post, Comment
 
 
-
-def posts_list(request):
-
-    return render(request, 'posts/post_list.html', context = {'posts': Post.objects.all()})
-
-
 class PostListView(ListView):
+    """
+    Список постов всех пользователей
+    """
     model = Post
     template_name = 'posts/post_list.html'
     context_object_name = 'posts'
@@ -21,6 +18,9 @@ class PostListView(ListView):
 
 
 class UserPostListView(ListView):
+    """
+    Список постов конкретного пользователя
+    """
     model = Post
     template_name = 'posts/user_posts.html'
     context_object_name = 'posts'
@@ -33,6 +33,9 @@ class UserPostListView(ListView):
 
 
 class PostDetailView(DetailView):
+    """
+    Страница поста
+    """
     model = Post
     template_name = 'posts/post_detail.html'
 
@@ -41,6 +44,9 @@ class PostDetailView(DetailView):
 
 
 class PostCreateView(LoginRequiredMixin, CreateView):
+    """
+    Страница создания поста
+    """
     model = Post
     fields = ['title', 'content']
 
@@ -50,6 +56,9 @@ class PostCreateView(LoginRequiredMixin, CreateView):
 
 
 class PostUpdateView(LoginRequiredMixin, UserPassesTestMixin, UpdateView):
+    """
+    Страница обновления поста
+    """
     model = Post
     fields = ['title', 'content']
 
@@ -65,6 +74,9 @@ class PostUpdateView(LoginRequiredMixin, UserPassesTestMixin, UpdateView):
 
 
 class PostDeleteView(LoginRequiredMixin, UserPassesTestMixin, DeleteView):
+    """
+    Страница удаления поста
+    """
     model = Post
 
     success_url = '/'
@@ -77,16 +89,21 @@ class PostDeleteView(LoginRequiredMixin, UserPassesTestMixin, DeleteView):
 
 
 class CreatePostComment(CreateView):
+    """
+    Страница создания комментария
+    """
     model = Comment
     fields = ['content']
 
     def form_valid(self, form):
         form.instance.author = self.request.user
-        form.instance.post = get_object_or_404(Post, pk=self.kwargs.get('pk'))
+        form.instance.post = get_object_or_404(Post, pk=self.kwargs.get('post_pk'))
         return super().form_valid(form)
 
     def get_success_url(self):
-        return reverse_lazy('posts_list_All')
+        return reverse_lazy('posts:list')
+
+
 
 
 

@@ -4,8 +4,10 @@ from .models import User
 
 
 class UserRegisterForm(UserCreationForm):
+    """
+    Форма регистрации пользователя
+    """
     email = forms.EmailField()
-
 
     class Meta:
         model = User
@@ -13,8 +15,10 @@ class UserRegisterForm(UserCreationForm):
 
 
 class UserUpdateForm(forms.ModelForm):
+    """
+    Форма обновления профиля пользователя
+    """
     email = forms.EmailField()
-
 
     class Meta:
         model = User

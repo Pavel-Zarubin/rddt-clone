@@ -18,7 +18,7 @@
 <body>
 
     <nav class="navbar navbar-expand-lg navbar-light bg-light">
-      <a href="{% url 'posts_list_All' %}" class="navbar-left"><img src="{% static 'MainPage/image/logo.png' %}"></a>
+      <a href="{% url 'posts:list' %}" class="navbar-left"><img src="{% static 'MainPage/image/logo.png' %}"></a>
       <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
       </button>
@@ -31,10 +31,11 @@
             </a>
             <div class="dropdown-menu" aria-labelledby="navbarDropdown">
               <a class="dropdown-header">Reddit Feeds</a>
-              <a class="dropdown-item" href="{% url 'posts_list_All' %}">All</a>
+              <a class="dropdown-item" href="{% url 'posts:list' %}">All</a>
+              <a class="dropdown-item" href="{% url 'posts:post-filter' %}">Post table</a>
             </div>
           </li>
-            <form class="form-inline" action="{% url 'posts_list_All' %}" method="get">
+            <form class="form-inline" action="{% url 'posts:list' %}" method="get">
                 <input class="form-control mr-sm-2" type="search" placeholder="Search Reddit" aria-label="Search" name="q">
                 <button class="btn btn-outline-primary my-2 my-sm-0" type="submit">Search</button>
             </form>
@@ -43,7 +44,7 @@
             <li class="btn-group dropleft">
                 <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Menu</button>
                     <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                      <a class="dropdown-item" href="{% url 'profile' %}">Profile</a>
+                      <a class="dropdown-item" href="{% url 'users:profile' %}">My Profile</a>
                         <div class="dropdown-divider"></div>
                       <a class="dropdown-item" href="{% url 'logout' %}">Log out</a>
                     </div>
@@ -85,7 +86,7 @@
                         <img class="card-img-top" src="{% static 'MainPage/image/post.jpeg' %}">
                         <div class="card-body">
                             <p class="card-text">The most active posts from all of Reddit. Come here to see new posts rising and be a part of the conversation.</p>
-                            <a class="btn btn-primary btn-lg btn-block" href="{% url 'post_create' %}" role="button">CREATE POST</a>
+                            <a class="btn btn-primary btn-lg btn-block" href="{% url 'posts:post-create' %}" role="button">CREATE POST</a>
                         </div>
                     </div>
                 </div>

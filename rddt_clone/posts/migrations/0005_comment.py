@@ -21,7 +21,7 @@ class Migration(migrations.Migration):
                 ('content', models.TextField(max_length=160)),
                 ('comment_date', models.DateTimeField(default=django.utils.timezone.now)),
                 ('author', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to=settings.AUTH_USER_MODEL)),
-                ('post', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='MainPage.Post')),
+                ('post', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='posts.Post')),
             ],
         ),
     ]

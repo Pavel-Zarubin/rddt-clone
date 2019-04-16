@@ -1,11 +1,12 @@
-import django_filters
+from django_filters import FilterSet
 from .models import User
 
 
-class UsersFilter(django_filters.FilterSet):
-
+class UsersFilter(FilterSet):
+    """
+    Фильтр пользователей по полу
+    """
     class Meta:
-
         model = User
         fields = ('gender', )
 

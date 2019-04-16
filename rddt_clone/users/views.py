@@ -1,4 +1,4 @@
-from django.shortcuts import render, redirect, get_object_or_404
+from django.shortcuts import render, redirect
 from django.contrib import messages
 from django.contrib.auth import authenticate, login
 from django.contrib.auth.decorators import login_required
@@ -33,7 +33,7 @@ def profile(request):
         if u_form.is_valid():
             u_form.save()
             messages.success(request, f'Your profile has been updated!')
-            return redirect('profile')
+            return redirect('users:profile')
 
     else:
         u_form = UserUpdateForm(instance=request.user)
@@ -43,13 +43,10 @@ def profile(request):
     return render(request, 'users/profile.html', context)
 
 
-
-def profiles_list(request):
-
-    return render(request, 'users/profile_list.html', context = {'users': User.objects.all()})
-
-
 class ProfileListView(ListView):
+    """
+    Список профилей пользователей
+    """
     model = User
     context_object_name = 'users'
     template_name = 'users/profile_list.html'
