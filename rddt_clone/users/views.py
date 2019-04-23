@@ -19,7 +19,7 @@ def register(request):
             user = authenticate(username=username, password=password)
             login(request, user)
 
-            return redirect('profile')
+            return redirect('users:profile')
     else:
         form = UserRegisterForm()
     return render(request, 'users/register.html', {'form': form})

@@ -6,13 +6,14 @@
 {% block content %}
     <form method="get">
         <a class="text-secondary">Filters:</a>
-        {{ filter.form|crispy }}
-        <button type="submit" class="btn-sm btn-primary mb-5">filter</button>
+        <p>{{ filter.form }}
+        <button type="submit" class="btn-sm btn-primary mt-2">filter</button>
+        </p>
     </form>
     <a class="text-secondary">All users profiles</a>
     {% for user in filter.qs %}
-        <div class="card mt-2 mb-3">
-            <div class="content-section mt-2 mb-2">
+        <div class="card mb-3">
+            <div class="content-section mt-2 mb-3">
                 <div class="media ml-2">
                     <img class="rounded" src="{{ user.image.url }}" width="100px" height="100px">
                     <div class="media-body ml-3">
