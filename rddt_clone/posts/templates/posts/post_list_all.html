@@ -5,7 +5,7 @@
 {% endblock %}
 
 {% block content %}
-    <h4 class="mb-2">Posts by {{ view.kwargs.username }}, number of posts: {{ page_obj.paginator.count }}</h4>
+    <p class="mb-2">All posts</p>
     {% for post in posts %}
         <div class="card mb-2">
             <article class="media content-section">

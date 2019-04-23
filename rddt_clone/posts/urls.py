@@ -1,15 +1,18 @@
 from django.urls import path
-from .views import (PostListView, PostDetailView,
+from .views import (PostListAllView, PostDetailView,
                     PostCreateView, PostUpdateView,
                     PostDeleteView, UserPostListView,
-                    CreatePostComment,)
+                    CreatePostComment, PostListSportView,
+                    PostListCarsView)
 from django_filters.views import FilterView
 from .filters import PostFilter
 
 app_name = 'posts'
 
 urlpatterns = [
-    path('', PostListView.as_view(), name='list'),
+    path('', PostListAllView.as_view(), name='list'),
+    path('sports/', PostListSportView.as_view(), name='sport'),
+    path('cars/', PostListCarsView.as_view(), name='cars'),
     path('by_username/<str:username>', UserPostListView.as_view(), name='list-by-username'),
     path('post/<int:pk>/', PostDetailView.as_view(), name='detail'),
     path('comment/create/<int:post_pk>', CreatePostComment.as_view(), name='comment-create'),

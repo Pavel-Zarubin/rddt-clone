@@ -8,10 +8,10 @@
 {% block content %}
         <div class="card mt-4 mb-2">
             <article class="media content-section">
-                <img class="rounded article-img" src="{{ object.author.image.url }}">
+                <img class="rounded article-img" src="{{ object.author.image.url }}" width="100px" height="100px">
                      <div class="media-body">
                          <div class="article-metadata mt-3 mb-3">
-                             <a class="ml-3" href="{% url 'posts:list-by-username' post.author.username %}" >{{object.author}}</a>
+                             <a class="ml-3" href="{% url 'posts:list-by-username' post.author.username %}">{{ object.author }}</a>
                              <a class="text-muted">on {{ object.date_posted }}</a>
                              {% if object.author == user %}
                              <a class="btn-sm btn-secondary ml-3 mb-2" href="{% url 'posts:post-update' object.id %}" role="button">EDIT</a>
@@ -19,6 +19,9 @@
                          </div>
                          <h4 class="card-title ml-3">{{ object.title }}</h4>
                          <p class="card-text ml-3 mb-3 mr-3">{{ object.content}}</p>
+                         {% if object.image %}
+                         <img class="container mt-3 mb-3" src="{{ object.image.url }}">
+                         {% endif %}
                      </div>
             </article>
         </div>
@@ -40,7 +43,7 @@
         {% if object.author == user %}
             <a class="btn btn-danger ml-3 mb-3" href="{% url 'posts:post-delete' object.id %}" role="button">Delete Post</a>
         {% endif %}
-        <p>No comments here yet <img src="{% static 'MainPage/image/40x40_minor.png' %}" width="25px" height="25px"></p>
+        <p>No comments here yet <img src="{% static 'posts/image/40x40_minor.png' %}" width="25px" height="25px"></p>
     {% endfor %}
 
 {% endblock %}

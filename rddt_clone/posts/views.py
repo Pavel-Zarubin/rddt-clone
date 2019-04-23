@@ -6,20 +6,48 @@ from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
 from .models import Post, Comment
 
 
-class PostListView(ListView):
+class PostListAllView(ListView):
     """
-    Список постов всех пользователей
+    Список всех постов пользователей
     """
     model = Post
-    template_name = 'posts/post_list.html'
+    template_name = 'posts/post_list_all.html'
     context_object_name = 'posts'
     ordering = ['-date_posted']
     paginate_by = 5
 
 
+class PostListSportView(ListView):
+    """
+    Список постов пользователей в категории "спорт"
+    """
+    model = Post
+    template_name = 'posts/post_list_sport.html'
+    context_object_name = 'posts'
+    ordering = ['-date_posted']
+    paginate_by = 5
+
+    def get_queryset(self):
+        return Post.objects.filter(section='sport')
+
+
+class PostListCarsView(ListView):
+    """
+    Список постов пользователей в категории "машины"
+    """
+    model = Post
+    template_name = 'posts/post_list_cars.html'
+    context_object_name = 'posts'
+    ordering = ['-date_posted']
+    paginate_by = 5
+
+    def get_queryset(self):
+        return Post.objects.filter(section='cars')
+
+
 class UserPostListView(ListView):
     """
-    Список постов конкретного пользователя
+    Список всех постов конкретного пользователя
     """
     model = Post
     template_name = 'posts/user_posts.html'
@@ -48,9 +76,9 @@ class PostCreateView(LoginRequiredMixin, CreateView):
     Страница создания поста
     """
     model = Post
-    fields = ['title', 'content']
+    fields = ['title', 'content', 'section', 'image']
 
-    def form_valid(self,form):
+    def form_valid(self, form):
         form.instance.author = self.request.user
         return super().form_valid(form)
 
@@ -60,7 +88,7 @@ class PostUpdateView(LoginRequiredMixin, UserPassesTestMixin, UpdateView):
     Страница обновления поста
     """
     model = Post
-    fields = ['title', 'content']
+    fields = ['title', 'content', 'section', 'image']
 
     def form_valid(self,form):
         form.instance.author = self.request.user
